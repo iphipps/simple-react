@@ -1,22 +1,45 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import {
+  BrowserRouter as Router,
+  Link,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
-export const RouteComponent = () => {
-  return (
-    <Router>
-      <Link to="/">Home Page</Link>
-      <Link to="/other">Other Page</Link>
-      <Switch>
-        <Route path="/" exact>
-          <div>Home page</div>
-        </Route>
-        <Route path="/other" exact>
-          <div>Other</div>
-        </Route>
-      </Switch>
-    </Router>
-  );
-};
+const Header = () => (
+  <header>
+    <Link to="/">Home Page</Link>
+    <Link to="/other">Other Page</Link>
+  </header>
+);
 
-ReactDOM.render(<RouteComponent />, document.getElementById('app'));
+export const Home = () => (
+  <div>
+    <Header />
+    Home Page
+  </div>
+);
+export const Other = () => (
+  <div>
+    <Header />
+    Other Page
+  </div>
+);
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/other",
+    element: <Other />,
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("app")!).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
